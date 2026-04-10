@@ -1,5 +1,26 @@
 [
   {
+    "id": 51,
+    "fecha": "2026-04-10 00:27:28",
+    "usuario": "qa.auditor@demo.local",
+    "accion": "Inicio de sesion",
+    "id_muestra": null
+  },
+  {
+    "id": 50,
+    "fecha": "2026-04-10 00:27:28",
+    "usuario": "qa.visor@demo.local",
+    "accion": "Inicio de sesion",
+    "id_muestra": null
+  },
+  {
+    "id": 49,
+    "fecha": "2026-04-10 00:27:28",
+    "usuario": "qa.admin@demo.local",
+    "accion": "Inicio de sesion",
+    "id_muestra": null
+  },
+  {
     "id": 48,
     "fecha": "2026-04-09 23:45:48",
     "usuario": "admin@prodeman.local",
