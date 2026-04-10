@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: control-documental-demo
+    runtime: python
+    plan: free
+    rootDir: render_apps
+    buildCommand: pip install -r requirements-control-hosted.txt
+    startCommand: gunicorn --chdir control_hosted wsgi:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: SECRET_KEY
+        generateValue: true
+
+  - type: web
+    name: muestras-contramuestras-demo
+    runtime: python
+    plan: free
+    rootDir: render_apps
+    buildCommand: pip install -r requirements-prodeman-hosted.txt
+    startCommand: gunicorn --chdir prodeman_hosted wsgi:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: SECRET_KEY
+        generateValue: true

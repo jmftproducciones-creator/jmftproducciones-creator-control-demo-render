@@ -1,0 +1,338 @@
+[
+  {
+    "id": 48,
+    "fecha": "2026-04-09 23:45:48",
+    "usuario": "admin@prodeman.local",
+    "accion": "Inicio de sesion",
+    "id_muestra": null
+  },
+  {
+    "id": 1,
+    "fecha": "2025-10-27T13:42:13",
+    "usuario": "PE",
+    "accion": "Modificación de muestra - Lote 0",
+    "id_muestra": "ddb51e0a-2e84-4888-ad1e-8466679c88e5"
+  },
+  {
+    "id": 2,
+    "fecha": "2025-10-27T13:48:53",
+    "usuario": "admin",
+    "accion": "Inicio de sesión exitoso",
+    "id_muestra": null
+  },
+  {
+    "id": 3,
+    "fecha": "2025-10-27T13:49:02",
+    "usuario": "admin",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 4,
+    "fecha": "2025-10-27T13:49:53",
+    "usuario": "PE",
+    "accion": "Inicio de sesión exitoso",
+    "id_muestra": null
+  },
+  {
+    "id": 5,
+    "fecha": "2025-10-27T13:50:33",
+    "usuario": "PE",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 6,
+    "fecha": "2025-10-27T13:52:52",
+    "usuario": "admin",
+    "accion": "Inicio de sesión exitoso",
+    "id_muestra": null
+  },
+  {
+    "id": 7,
+    "fecha": "2025-10-27T22:41:53",
+    "usuario": "PE",
+    "accion": "Inicio de sesión exitoso",
+    "id_muestra": null
+  },
+  {
+    "id": 8,
+    "fecha": "2025-10-27T22:47:31",
+    "usuario": "PE",
+    "accion": "Modificación de muestra - Lote 123",
+    "id_muestra": "3ae04c4a-4d5b-4be0-8bba-393da9ac1cf0"
+  },
+  {
+    "id": 9,
+    "fecha": "2025-10-27T22:47:35",
+    "usuario": "PE",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 10,
+    "fecha": "2025-10-27T22:48:08",
+    "usuario": "admin",
+    "accion": "Inicio de sesión exitoso",
+    "id_muestra": null
+  },
+  {
+    "id": 11,
+    "fecha": "2025-10-27T22:48:24",
+    "usuario": "admin",
+    "accion": "Modificación de muestra - Lote 123",
+    "id_muestra": "b617e773-65b4-41df-ab00-4f5f17dfb88e"
+  },
+  {
+    "id": 12,
+    "fecha": "2025-10-27T22:49:42",
+    "usuario": "admin",
+    "accion": "Aceptación de muestra ID b617e773-65b4-41df-ab00-4f5f17dfb88e",
+    "id_muestra": "b617e773-65b4-41df-ab00-4f5f17dfb88e"
+  },
+  {
+    "id": 13,
+    "fecha": "2025-10-27T22:50:12",
+    "usuario": "admin",
+    "accion": "Modificación de muestra - Lote 123123",
+    "id_muestra": "3ae04c4a-4d5b-4be0-8bba-393da9ac1cf0"
+  },
+  {
+    "id": 14,
+    "fecha": "2025-10-27T22:50:24",
+    "usuario": "admin",
+    "accion": "Eliminación de muestra ID 3ae04c4a-4d5b-4be0-8bba-393da9ac1cf0",
+    "id_muestra": "3ae04c4a-4d5b-4be0-8bba-393da9ac1cf0"
+  },
+  {
+    "id": 15,
+    "fecha": "2025-10-27T22:50:34",
+    "usuario": "admin",
+    "accion": "Rechazo de muestra ID ddb51e0a-2e84-4888-ad1e-8466679c88e5 - Motivo: Error en lote, Muestra contaminada, Datos incompletos, Muestra mal rotulada, Otro problema",
+    "id_muestra": "ddb51e0a-2e84-4888-ad1e-8466679c88e5"
+  },
+  {
+    "id": 16,
+    "fecha": "2025-10-27T22:51:03",
+    "usuario": "admin",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 17,
+    "fecha": "2025-10-27T22:51:13",
+    "usuario": "PE",
+    "accion": "Inicio de sesión exitoso",
+    "id_muestra": null
+  },
+  {
+    "id": 18,
+    "fecha": "2025-10-27T22:51:29",
+    "usuario": "PE",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 19,
+    "fecha": "2025-11-26T13:05:13",
+    "usuario": "admin",
+    "accion": "Inicio de sesión exitoso",
+    "id_muestra": null
+  },
+  {
+    "id": 20,
+    "fecha": "2025-11-26T13:07:12",
+    "usuario": "admin",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 21,
+    "fecha": "2025-11-26T13:07:17",
+    "usuario": "PE",
+    "accion": "Inicio de sesión exitoso",
+    "id_muestra": null
+  },
+  {
+    "id": 22,
+    "fecha": "2025-11-26T13:08:17",
+    "usuario": "PE",
+    "accion": "Modificación de muestra - Lote 123",
+    "id_muestra": "029b6ae8-ef06-4b1f-8230-6453be143bac"
+  },
+  {
+    "id": 23,
+    "fecha": "2025-11-26T13:21:59",
+    "usuario": "PE",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 24,
+    "fecha": "2025-11-26T13:22:55",
+    "usuario": "nicolasbricchifuentes14@gmail.com",
+    "accion": "Registro de nuevo usuario",
+    "id_muestra": null
+  },
+  {
+    "id": 25,
+    "fecha": "2025-11-26T13:23:14",
+    "usuario": "nicolasbricchifuentes14@gmail.com",
+    "accion": "Inicio de sesión exitoso (usuario DB)",
+    "id_muestra": null
+  },
+  {
+    "id": 26,
+    "fecha": "2025-11-26T13:52:05",
+    "usuario": "nicolasbricchifuentes14@gmail.com",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 27,
+    "fecha": "2025-11-26T14:29:05",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 28,
+    "fecha": "2025-11-26T14:31:05",
+    "usuario": "pe@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 29,
+    "fecha": "2025-11-26T15:54:34",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 30,
+    "fecha": "2025-11-26T15:54:48",
+    "usuario": "pe@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 31,
+    "fecha": "2025-11-26T16:23:59",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 32,
+    "fecha": "2025-11-26T17:38:57",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 33,
+    "fecha": "2025-11-26T18:17:01",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 34,
+    "fecha": "2025-11-26T18:17:22",
+    "usuario": "pe@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 35,
+    "fecha": "2025-11-26T18:17:39",
+    "usuario": "micro@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 36,
+    "fecha": "2025-11-26T18:17:59",
+    "usuario": "crudo@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 37,
+    "fecha": "2025-11-26T18:18:28",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 38,
+    "fecha": "2025-11-26T18:19:44",
+    "usuario": "crudo@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 39,
+    "fecha": "2025-11-26T18:22:18",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 40,
+    "fecha": "2025-11-26T18:23:32",
+    "usuario": "pe@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 41,
+    "fecha": "2025-11-26T18:27:48",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 42,
+    "fecha": "2025-11-26T19:47:50",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 43,
+    "fecha": "2025-11-26T19:48:09",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 44,
+    "fecha": "2025-11-26T19:48:30",
+    "usuario": "pe@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 45,
+    "fecha": "2026-01-19T13:26:15",
+    "usuario": "admin@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 46,
+    "fecha": "2026-01-19T13:26:48",
+    "usuario": "pe@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  },
+  {
+    "id": 47,
+    "fecha": "2026-01-19T13:40:12",
+    "usuario": "micro@prodeman.local",
+    "accion": "Cierre de sesión",
+    "id_muestra": null
+  }
+]

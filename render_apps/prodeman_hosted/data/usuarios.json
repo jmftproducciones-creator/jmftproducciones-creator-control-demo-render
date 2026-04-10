@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "nombre": "Administrador",
+    "apellido": "General",
+    "correo": "admin@prodeman.local",
+    "password_hash": "scrypt:32768:8:1$WHKrRlswzMFwMZ4i$d4886c4d2f6d18bec18deeb28ac172c37e152f5809da0f326f521b517e56a160abb2b1f987aa1874a8c89e773a20ae557628944b0dac5e01520624ec4b2c59ea",
+    "rol": "admin",
+    "laboratorio": null,
+    "activo": 1
+  },
+  {
+    "id": 2,
+    "nombre": "Laboratorio PE",
+    "apellido": "",
+    "correo": "pe@prodeman.local",
+    "password_hash": "scrypt:32768:8:1$ul2MZWQ8yYsOqFBm$8e18bb41f9bbf8f43e60d864da41e9d6cf676818c39e3cf9c5179e9d26404e5404296a84b98029fbc74f2b4aafe69965f946a412e9ca04ed721db730b1bd99c0",
+    "rol": "lab",
+    "laboratorio": "PE",
+    "activo": 1
+  },
+  {
+    "id": 3,
+    "nombre": "Laboratorio SAT",
+    "apellido": "",
+    "correo": "sat@prodeman.local",
+    "password_hash": "scrypt:32768:8:1$FlfXhHqsY5rWPfzD$fdc96ba674a163956c2b5134db60b46190ed1cf51a02fae79419acd3e589e651da0f8a7e95720a6b9c4c76a302adfde4f800c7be9ff8cb87b76b947b6701c1cc",
+    "rol": "lab",
+    "laboratorio": "SAT",
+    "activo": 1
+  },
+  {
+    "id": 4,
+    "nombre": "Laboratorio MICRO",
+    "apellido": "",
+    "correo": "micro@prodeman.local",
+    "password_hash": "scrypt:32768:8:1$OnRL2eM1X1XFCvVP$cd4fead44f55fce46fcb936c7fd101c7c01ff2b73d0b8d12b696481b318e93b75e3b3c40f7e79a17618692a1d7033a20068572c10391807fd4292eaa034ad1bf",
+    "rol": "lab",
+    "laboratorio": "MICRO",
+    "activo": 1
+  },
+  {
+    "id": 5,
+    "nombre": "Laboratorio CRUDO",
+    "apellido": "",
+    "correo": "crudo@prodeman.local",
+    "password_hash": "scrypt:32768:8:1$0jLJe0fmhYOQn4Gv$8e761b5182b4edad7c5cb6cf42eeaf8e173a0ae69971da1fd1071afc1b8289758f47161d5bfaaa8ee23dccf9145bd604addd4ed662423b6f7c14e651f38e3b0d",
+    "rol": "lab",
+    "laboratorio": "CRUDO",
+    "activo": 1
+  },
+  {
+    "id": 6,
+    "nombre": "Laboratorio ELI",
+    "apellido": "",
+    "correo": "eli@prodeman.local",
+    "password_hash": "scrypt:32768:8:1$EI5gANd4lfVBoU07$b8bff230cfc40c31935fe6943dbc402271aec544604d78c7a9fc9f6d3c4c68ef4658ba598b4d30ed8ba837ddcfad836c6989da088fe0955896fef1814ba108a8",
+    "rol": "lab",
+    "laboratorio": "ELI",
+    "activo": 1
+  },
+  {
+    "id": 7,
+    "nombre": "Laboratorio GC",
+    "apellido": "",
+    "correo": "gc@prodeman.local",
+    "password_hash": "scrypt:32768:8:1$uZiUxN16M0nLRjlw$6fe14adf3009effb5f8d1a26dcb2b8d83d00da529f2ad782d8cc251d5f97d814ead304355c15d10a68f5ab67e211293c178af4c6d622b9f7211ca0abe24f977b",
+    "rol": "lab",
+    "laboratorio": "GC",
+    "activo": 1
+  },
+  {
+    "id": 8,
+    "nombre": "Laboratorio HPLC",
+    "apellido": "",
+    "correo": "hplc@prodeman.local",
+    "password_hash": "scrypt:32768:8:1$WPPfVXwZLbkacL8w$e7782b6df6eb5456edbb5ff6ece519adc2a6bd731a817996d08289e2bcac4b2b2314b4d5be4df262264d3df70e1b41de333f79a3f6138ae1e9a33392772f3f10",
+    "rol": "lab",
+    "laboratorio": "HPLC",
+    "activo": 1
+  },
+  {
+    "id": 9,
+    "nombre": "Laboratorio ENVASADO",
+    "apellido": "",
+    "correo": "envasado@prodeman.local",
+    "password_hash": "scrypt:32768:8:1$3ULwMQgudkGYNN1Y$49b0e6cdd76e6c2589d2ce5fae3505a984f6335b1517e0160dc71279e9ecf4cfabda9a738a8ee0d1de29e54afa86133618010f40f78e1d6459cc2f140505d525",
+    "rol": "lab",
+    "laboratorio": "ENVASADO",
+    "activo": 1
+  }
+]

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Prodeman{% endblock %}</title>
+
+    <style>
+        body { background:#121212; color:white; margin:0; font-family:Arial; }
+        header { padding:15px; background:#8b0000; text-align:right; }
+        header a { color:white; margin-left:20px; }
+    </style>
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+<header>
+    Usuario: {{ session["usuario"] }}
+    <a href="{{ url_for('index') }}">Volver</a>
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+</header>
+
+<main style="padding:25px;">
+    {% block content %}{% endblock %}
+</main>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

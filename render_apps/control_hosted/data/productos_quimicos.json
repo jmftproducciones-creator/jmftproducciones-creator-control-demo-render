@@ -1,0 +1,28 @@
+[
+  {
+    "id": 2,
+    "control_id": 8,
+    "nombre_producto": "limpia piso",
+    "bajo_llave": 0,
+    "envase_original": 0,
+    "etiquetado_correcto": 0,
+    "hoja_seguridad": 0,
+    "observaciones": "observado",
+    "medida": "12",
+    "created_at": "2026-03-21T00:17:11",
+    "updated_at": "2026-03-21T00:17:11"
+  },
+  {
+    "id": 3,
+    "control_id": 4,
+    "nombre_producto": "limpia piso",
+    "bajo_llave": 1,
+    "envase_original": 1,
+    "etiquetado_correcto": 1,
+    "hoja_seguridad": 0,
+    "observaciones": "",
+    "medida": "",
+    "created_at": "2026-03-28T19:16:09",
+    "updated_at": "2026-03-28T19:16:09"
+  }
+]

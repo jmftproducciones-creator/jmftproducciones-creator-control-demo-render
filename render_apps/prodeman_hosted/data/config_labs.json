@@ -1,0 +1,47 @@
+[
+  {
+    "codigo": "ALERGENOS",
+    "nombre": "Alergenos",
+    "tipo": "destino"
+  },
+  {
+    "codigo": "CRUDO",
+    "nombre": "Crudo",
+    "tipo": "destino"
+  },
+  {
+    "codigo": "ELI",
+    "nombre": "ELI",
+    "tipo": "destino"
+  },
+  {
+    "codigo": "ENVASADO",
+    "nombre": "Laboratorio Envasado",
+    "tipo": "destino"
+  },
+  {
+    "codigo": "GC",
+    "nombre": "GC",
+    "tipo": "destino"
+  },
+  {
+    "codigo": "HPLC",
+    "nombre": "HPLC",
+    "tipo": "envio"
+  },
+  {
+    "codigo": "MICRO",
+    "nombre": "Laboratorio Microbiología",
+    "tipo": "envio"
+  },
+  {
+    "codigo": "PE",
+    "nombre": "Laboratorio PE",
+    "tipo": "envio"
+  },
+  {
+    "codigo": "SAT",
+    "nombre": "Laboratorio SAT",
+    "tipo": "envio"
+  }
+]

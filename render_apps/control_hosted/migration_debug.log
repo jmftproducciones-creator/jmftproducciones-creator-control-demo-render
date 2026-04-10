@@ -1,0 +1,103 @@
+
+--- Migración Versionada: 2026-03-28 16:31:07.747335 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] Ejecutando 002_workflow_timestamps
+
+--- Migración Versionada: 2026-03-28 16:31:08.348657 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:16:38.119013 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:24:42.310592 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:37:31.523037 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] Ejecutando 003_capa_evidence_gallery
+
+--- Migración Versionada: 2026-03-28 18:37:35.060445 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:37:40.551210 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:39:44.439313 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:50:48.322587 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:50:54.776090 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:55:39.241055 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:56:38.906349 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 18:58:57.941666 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 19:15:13.117000 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 19:22:41.110850 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 19:22:58.627930 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-28 19:23:11.089788 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-31 21:02:30.793896 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-31 21:02:31.299528 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-31 21:25:15.570817 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-03-31 21:25:15.880467 ---
+[MIGRATE] 001_legacy_bootstrap ya aplicada
+[MIGRATE] 002_workflow_timestamps ya aplicada
+[MIGRATE] 003_capa_evidence_gallery ya aplicada
+
+--- Migración Versionada: 2026-04-09 23:37:39.111494 ---

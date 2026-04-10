@@ -1,0 +1,57 @@
+[
+  {
+    "id": "f95a1b02-683c-41a5-be38-88ac3b05eef7",
+    "labenvio": "PE",
+    "labdestino": "CRUDO",
+    "semana": "123",
+    "fecha": "2025-10-09",
+    "lote": "123",
+    "responsable": "Lucía Fernández",
+    "estado": "Aceptado",
+    "comentario": ""
+  },
+  {
+    "id": "b6acd19f-88e2-43ec-a5df-4f0254e397e1",
+    "labenvio": "PE",
+    "labdestino": "HPLC",
+    "semana": "123",
+    "fecha": "2025-10-08",
+    "lote": "123",
+    "responsable": "Pedro López",
+    "estado": "Rechazado",
+    "comentario": "Datos incompletos, Muestra mal rotulada, Otro problema"
+  },
+  {
+    "id": "d585b50a-9bd1-4e6a-9d66-bd2e245005a0",
+    "labenvio": "PE",
+    "labdestino": "CRUDO",
+    "semana": "123",
+    "fecha": "0123-03-12",
+    "lote": "123123",
+    "responsable": "María González",
+    "estado": "Aceptado",
+    "comentario": ""
+  },
+  {
+    "id": "12ac11ee-272c-4b78-8451-cae0260be6b9",
+    "labenvio": "ALERGENOS",
+    "labdestino": "MICRO",
+    "semana": "123",
+    "fecha": "123123-03-12",
+    "lote": "1231231",
+    "responsable": "Juan Pérez",
+    "estado": "Rechazado",
+    "comentario": "Error en lote, Muestra mal rotulada, Otro problema"
+  },
+  {
+    "id": "10c3433c-9340-4dbe-8e7a-606431f66272",
+    "labenvio": "PE",
+    "labdestino": "MICRO",
+    "semana": "ytfdc",
+    "fecha": "2025-10-18",
+    "lote": "fgfdr",
+    "responsable": "María González",
+    "estado": "Pendiente",
+    "comentario": ""
+  }
+]

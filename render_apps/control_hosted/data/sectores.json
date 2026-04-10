@@ -1,0 +1,137 @@
+[
+  {
+    "id": 34,
+    "planta_id": 1,
+    "nombre": "Guardia",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 35,
+    "planta_id": 1,
+    "nombre": "OC bioenergía",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 36,
+    "planta_id": 1,
+    "nombre": "Laboratorios",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 37,
+    "planta_id": 1,
+    "nombre": "Planta Maní Blanqueado",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 38,
+    "planta_id": 1,
+    "nombre": "Planta Maní Confitería U.I - Lab",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 39,
+    "planta_id": 1,
+    "nombre": "Lab. ingreso, balanza y calador",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 40,
+    "planta_id": 1,
+    "nombre": "Planta SAT",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 41,
+    "planta_id": 1,
+    "nombre": "Elaborado Producción",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 42,
+    "planta_id": 1,
+    "nombre": "Elaborado Envasado",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 43,
+    "planta_id": 1,
+    "nombre": "Alérgenos",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 44,
+    "planta_id": 1,
+    "nombre": "Taller, pañol, G5",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 45,
+    "planta_id": 1,
+    "nombre": "Acopio y secado",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 46,
+    "planta_id": 1,
+    "nombre": "Planta CyL - Silos",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 47,
+    "planta_id": 1,
+    "nombre": "Planta Prod. Especiales y Sub. Prod",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  },
+  {
+    "id": 48,
+    "planta_id": 1,
+    "nombre": "Depósito G4",
+    "descripcion": null,
+    "activo": 1,
+    "created_at": "2026-03-17T17:24:50",
+    "updated_at": "2026-03-17T17:24:50"
+  }
+]

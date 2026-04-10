@@ -1,0 +1,547 @@
+{% extends "base.html" %}
+{% block title %}Panel de administración{% endblock %}
+
+{% block content %}
+<style>
+  /* ======== ESTILO GENERAL COMPATIBLE CON TU TEMA ======== */
+
+  .admin-title {
+    font-size: 1.6rem;
+    margin: 0 0 4px;
+  }
+
+  .admin-subtitle {
+    margin: 0 0 16px;
+    color: #d1d5db;
+    font-size: 0.9rem;
+  }
+
+  .admin-box {
+    background: #1f2937;
+    border: 1px solid #B72218;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+
+  .admin-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .admin-tab {
+    background: #631009;
+    border: 1px solid #B72218;
+    color: #F2E6CF;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .admin-tab:hover {
+    background: #B72218;
+    transform: translateY(-1px);
+  }
+
+  .admin-tab.active {
+    background: #B72218;
+    box-shadow: 0 0 6px #B72218aa;
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    table-layout: fixed;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    border: 1px solid #B72218;
+    padding: 6px 8px;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .admin-table th {
+    background: #631009;
+    color: #F2E6CF;
+    font-weight: 600;
+  }
+
+  .admin-table td {
+    background: #323232;
+    color: #F2E6CF;
+  }
+
+  .admin-table tr:nth-child(even) td {
+    background: #3d3d3d;
+  }
+
+  .admin-table input,
+  .admin-table select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-base {
+    border-radius: 8px;
+    border: 1px solid #B72218;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    background: #631009;
+    color: #F2E6CF;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-base:hover {
+    background: #B72218;
+    transform: translateY(-1px);
+  }
+
+  .btn-verde {
+    background: #047857;
+    border-color: #10b981;
+  }
+
+  .btn-verde:hover {
+    background: #10b981;
+  }
+
+  .btn-rojo {
+    background: #7f1d1d;
+    border-color: #ef4444;
+  }
+
+  .btn-rojo:hover {
+    background: #ef4444;
+  }
+
+  .btn-azul {
+    background: #1d4ed8;
+    border-color: #3b82f6;
+  }
+
+  .btn-azul:hover {
+    background: #3b82f6;
+  }
+
+  .admin-actions-top {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* ======== MODAL CAMBIO DE CONTRASEÑA ======== */
+
+  #modalPass {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+
+  #modalPass .modal-content {
+    background: #111827;
+    border-radius: 12px;
+    border: 1px solid #B72218;
+    padding: 18px 20px;
+    width: 320px;
+    max-width: 90vw;
+    color: #F2E6CF;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  }
+
+  #modalPass h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  #modalPass input[type="password"] {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #B72218;
+    background: #1f2937;
+    color: #F2E6CF;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+  }
+
+  #modalPass .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+</style>
+
+<div class="admin-box">
+  <h2 class="admin-title">Panel de administración</h2>
+  <p class="admin-subtitle">
+    Gestioná usuarios del sistema, laboratorios y responsables de muestras.
+  </p>
+
+  <!-- PESTAÑAS -->
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-target="tab-usuarios">Usuarios</button>
+    <button class="admin-tab" data-target="tab-labs">Laboratorios</button>
+    <button class="admin-tab" data-target="tab-resp">Responsables</button>
+  </div>
+
+  <!-- ======================= TAB: USUARIOS ======================= -->
+  <div id="tab-usuarios" class="tab-content active">
+
+    <table class="admin-table">
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo</th>
+        <th>Rol</th>
+        <th>Laboratorio</th>
+        <th>Activo</th>
+        <th>Acciones</th>
+      </tr>
+
+      {% for u in usuarios %}
+      <tr data-id="{{ u.id }}">
+        <td><input class="inp-nombre" value="{{ u.nombre }}"></td>
+        <td><input class="inp-apellido" value="{{ u.apellido }}"></td>
+        <td><input class="inp-correo" value="{{ u.correo }}"></td>
+
+        <td>
+          <select class="inp-rol">
+            <option value="superadmin" {% if u.rol=='superadmin' %}selected{% endif %}>Superadmin</option>
+            <option value="admin" {% if u.rol=='admin' %}selected{% endif %}>Admin</option>
+            <option value="tecnico" {% if u.rol=='tecnico' %}selected{% endif %}>Tecnico</option>
+            <option value="visor" {% if u.rol=='visor' %}selected{% endif %}>Visor</option>
+          </select>
+        </td>
+
+        <td>
+          <select class="inp-lab">
+            <option value="">-- Ninguno --</option>
+            {% for l in labs %}
+            <option value="{{ l.codigo }}" {% if u.laboratorio == l.codigo %}selected{% endif %}>
+              {{ l.codigo }}
+            </option>
+            {% endfor %}
+          </select>
+        </td>
+
+        <td>
+          <input type="checkbox" class="inp-activo" {% if u.activo %}checked{% endif %}>
+        </td>
+
+        <td>
+          <div class="btn-row">
+            <button class="btn-base btn-verde btn-guardar">Guardar</button>
+            <button class="btn-base btn-azul btn-password">Contraseña</button>
+            <button class="btn-base btn-rojo btn-eliminar">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <!-- ======================= TAB: LABORATORIOS ======================= -->
+  <div id="tab-labs" class="tab-content">
+
+    <div class="admin-actions-top">
+      <button class="btn-base btn-verde btn-crear-lab">+ Crear laboratorio</button>
+    </div>
+
+    <table class="admin-table">
+      <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>tipo</th>
+        <th>Acciones</th>
+      </tr>
+
+      {% for l in labs %}
+      <tr data-codigo="{{ l.codigo }}">
+        <td><input class="inp-codigo" value="{{ l.codigo }}"></td>
+        <td><input class="inp-nombre" value="{{ l.nombre }}"></td>
+        <td>
+        <select class="inp-tipo">
+            <option value="envio"   {% if l.tipo=='envio' %}selected{% endif %}>Envío</option>
+            <option value="destino" {% if l.tipo=='destino' %}selected{% endif %}>Destino</option>
+            <option value="ambos"   {% if l.tipo=='ambos' %}selected{% endif %}>Ambos</option>
+        </select>
+        </td>
+        <td>
+          <div class="btn-row">
+            <button class="btn-base btn-verde btn-guardar-lab">Guardar</button>
+            <button class="btn-base btn-rojo btn-eliminar-lab">Eliminar</button>
+          </div>
+        </td>
+        
+        
+
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <!-- ======================= TAB: RESPONSABLES ======================= -->
+  <div id="tab-resp" class="tab-content">
+
+    <div class="admin-actions-top">
+      <button class="btn-base btn-verde btn-crear-resp">+ Crear responsable</button>
+    </div>
+
+    <table class="admin-table">
+      <tr>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+
+      {% for r in responsables %}
+      <tr data-id="{{ r.id }}">
+        <td><input class="inp-resp" value="{{ r.nombre }}"></td>
+        <td>
+          <div class="btn-row">
+            <button class="btn-base btn-verde btn-guardar-resp">Guardar</button>
+            <button class="btn-base btn-rojo btn-eliminar-resp">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+<!-- ======================= MODAL CAMBIO DE CONTRASEÑA ======================= -->
+<div id="modalPass">
+  <div class="modal-content">
+    <h3>Cambiar contraseña</h3>
+    <input type="password" id="passNueva" placeholder="Nueva contraseña">
+    <div class="modal-buttons">
+      <button id="btnGuardarPass" class="btn-base btn-verde">Guardar</button>
+      <button id="btnCancelarPass" class="btn-base btn-rojo">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  async function postJSON(url, data) {
+    const resp = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    if (!resp.ok) {
+      console.error("Error en", url, resp.status);
+    }
+    try {
+      return await resp.json();
+    } catch {
+      return {};
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // =================== TABS ===================
+    document.querySelectorAll(".admin-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(tc => tc.classList.remove("active"));
+
+        tab.classList.add("active");
+        const target = tab.dataset.target;
+        const cont = document.getElementById(target);
+        if (cont) cont.classList.add("active");
+      });
+    });
+
+    // =================== USUARIOS ===================
+    document.querySelectorAll(".btn-guardar").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        const tr = e.target.closest("tr");
+        if (!tr) return;
+
+        await postJSON("/admin/usuarios", {
+          accion: "guardar",
+          id: tr.dataset.id,
+          nombre: tr.querySelector(".inp-nombre").value,
+          apellido: tr.querySelector(".inp-apellido").value,
+          correo: tr.querySelector(".inp-correo").value,
+          rol: tr.querySelector(".inp-rol").value,
+          laboratorio: tr.querySelector(".inp-lab").value,
+          activo: tr.querySelector(".inp-activo").checked
+        });
+        alert("Usuario guardado");
+      });
+    });
+
+    document.querySelectorAll(".btn-eliminar").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        if (!confirm("¿Eliminar usuario?")) return;
+        const tr = e.target.closest("tr");
+        if (!tr) return;
+
+        await postJSON("/admin/usuarios", {
+          accion: "eliminar",
+          id: tr.dataset.id
+        });
+        location.reload();
+      });
+    });
+
+    // =================== CAMBIO DE CONTRASEÑA ===================
+    const modalPass   = document.getElementById("modalPass");
+    const passNueva   = document.getElementById("passNueva");
+    const btnGuardarP = document.getElementById("btnGuardarPass");
+    const btnCancelP  = document.getElementById("btnCancelarPass");
+    let usuarioIdEnModal = null;
+
+    document.querySelectorAll(".btn-password").forEach(btn => {
+      btn.addEventListener("click", e => {
+        const tr = e.target.closest("tr");
+        if (!tr) return;
+        usuarioIdEnModal = tr.dataset.id;
+        passNueva.value = "";
+        modalPass.style.display = "flex";
+        passNueva.focus();
+      });
+    });
+
+    btnCancelP.addEventListener("click", () => {
+      modalPass.style.display = "none";
+      usuarioIdEnModal = null;
+    });
+
+    btnGuardarP.addEventListener("click", async () => {
+      if (!usuarioIdEnModal) return;
+      const nueva = passNueva.value.trim();
+      if (!nueva) {
+        alert("Ingresá una contraseña.");
+        return;
+      }
+
+      await postJSON("/admin/cambiar_pass", {
+        id: usuarioIdEnModal,
+        password: nueva
+      });
+
+      alert("Contraseña actualizada");
+      modalPass.style.display = "none";
+      usuarioIdEnModal = null;
+    });
+
+    // Cerrar el modal haciendo click fuera
+    modalPass.addEventListener("click", e => {
+      if (e.target === modalPass) {
+        modalPass.style.display = "none";
+        usuarioIdEnModal = null;
+      }
+    });
+
+    // =================== LABORATORIOS ===================
+    const btnCrearLab = document.querySelector(".btn-crear-lab");
+    if (btnCrearLab) {
+      btnCrearLab.addEventListener("click", async () => {
+        await postJSON("/admin/labs", { accion: "crear" });
+        location.reload();
+      });
+    }
+
+    document.querySelectorAll(".btn-guardar-lab").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        const tr = e.target.closest("tr");
+        if (!tr) return;
+
+        await postJSON("/admin/labs", {
+            accion: "guardar",
+            codigo: tr.dataset.codigo,
+            codigo_nuevo: tr.querySelector(".inp-codigo").value,
+            nombre: tr.querySelector(".inp-nombre").value,
+            tipo: tr.querySelector(".inp-tipo").value
+        });
+
+      });
+    });
+
+    document.querySelectorAll(".btn-eliminar-lab").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        if (!confirm("¿Eliminar laboratorio?")) return;
+        const tr = e.target.closest("tr");
+        if (!tr) return;
+
+        await postJSON("/admin/labs", {
+          accion: "eliminar",
+          codigo: tr.dataset.codigo
+        });
+        location.reload();
+      });
+    });
+
+    // =================== RESPONSABLES ===================
+    const btnCrearResp = document.querySelector(".btn-crear-resp");
+    if (btnCrearResp) {
+      btnCrearResp.addEventListener("click", async () => {
+        await postJSON("/admin/responsables", { accion: "crear" });
+        location.reload();
+      });
+    }
+
+    document.querySelectorAll(".btn-guardar-resp").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        const tr = e.target.closest("tr");
+        if (!tr) return;
+
+        await postJSON("/admin/responsables", {
+          accion: "guardar",
+          id: tr.dataset.id,
+          nombre: tr.querySelector(".inp-resp").value
+        });
+        alert("Responsable guardado");
+      });
+    });
+
+    document.querySelectorAll(".btn-eliminar-resp").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        if (!confirm("¿Eliminar responsable?")) return;
+        const tr = e.target.closest("tr");
+        if (!tr) return;
+
+        await postJSON("/admin/responsables", {
+          accion: "eliminar",
+          id: tr.dataset.id
+        });
+        location.reload();
+      });
+    });
+  });
+</script>
+{% endblock %}

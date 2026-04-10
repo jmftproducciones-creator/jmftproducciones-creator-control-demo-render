@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Ingreso al Sistema Prodeman</title>
+  <style>
+    body { font-family:sans-serif; background:#111; color:#eee; display:flex; justify-content:center; align-items:center; height:100vh; }
+    form { background:#1f2937; padding:30px; border-radius:12px; display:flex; flex-direction:column; gap:10px; width:280px; }
+    input, button { padding:8px; border-radius:6px; border:none; }
+    button { background:#B72218; color:white; cursor:pointer; }
+  </style>
+</head>
+<body>
+    <form method="POST">
+    <h2>Inicio de sesión</h2>
+    {% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+    <input name="usuario" placeholder="Correo" required>
+    <input name="password" type="password" placeholder="Contraseña" required>
+    <button type="submit">Ingresar</button>
+
+    <p style="margin-top:10px; font-size:0.9em;">
+      ¿No tenés cuenta?
+      <a href="{{ url_for('registro') }}" style="color:#60a5fa;">Registrate acá</a>
+    </p>
+  </form>
+
+</body>
+</html>

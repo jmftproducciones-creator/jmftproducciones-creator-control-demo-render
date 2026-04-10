@@ -1,0 +1,145 @@
+[
+  {
+    "id": "012d69cc-4dc6-4270-8f5d-d71369eb4fc7",
+    "labenvio": "PE",
+    "labdestino": "CRUDO",
+    "semana": "123",
+    "fecha": "2025-10-01",
+    "lote": "123",
+    "responsable": "Juan Pérez",
+    "estado": "Aceptado",
+    "comentario": ""
+  },
+  {
+    "id": "029b6ae8-ef06-4b1f-8230-6453be143bac",
+    "labenvio": "PE",
+    "labdestino": "CRUDO",
+    "semana": "123",
+    "fecha": "2025-11-26",
+    "lote": "123",
+    "responsable": "Juan Pérez",
+    "estado": "Pendiente",
+    "comentario": ""
+  },
+  {
+    "id": "14080a18-191e-41b0-934b-845b25b8e95e",
+    "labenvio": "PE",
+    "labdestino": "CRUDO",
+    "semana": "123",
+    "fecha": "2025-10-01",
+    "lote": "123",
+    "responsable": "María González",
+    "estado": "Rechazado",
+    "comentario": "Error en lote, Muestra contaminada"
+  },
+  {
+    "id": "2a13eb55-cb56-4502-b87b-99cf24c9caff",
+    "labenvio": "PE",
+    "labdestino": "HPLC",
+    "semana": "123",
+    "fecha": "2025-11-05",
+    "lote": "123",
+    "responsable": "Pedro López",
+    "estado": "Rechazado",
+    "comentario": "Error en lote, Muestra contaminada, Datos incompletos, Muestra mal rotulada, Otro problema"
+  },
+  {
+    "id": "347d45b4-e499-465c-92d2-966157629105",
+    "labenvio": "PE",
+    "labdestino": "HPLC",
+    "semana": "123",
+    "fecha": "2025-10-03",
+    "lote": "123",
+    "responsable": "Pedro López",
+    "estado": "Rechazado",
+    "comentario": "Muestra contaminada, Datos incompletos, Muestra mal rotulada, Otro problema"
+  },
+  {
+    "id": "3b178a71-b8da-4f2f-a35c-e6688708bf56",
+    "labenvio": "ALERGENOS",
+    "labdestino": "MICRO",
+    "semana": "234",
+    "fecha": "0234-04-23",
+    "lote": "234234",
+    "responsable": "Juan Pérez",
+    "estado": "Aceptado",
+    "comentario": ""
+  },
+  {
+    "id": "40878fde-3750-4573-bf94-f1d53f354225",
+    "labenvio": "PE",
+    "labdestino": "HPLC",
+    "semana": "123",
+    "fecha": "2025-10-16",
+    "lote": "123",
+    "responsable": "Pedro López",
+    "estado": "Rechazado",
+    "comentario": "Muestra mal rotulada, Otro problema"
+  },
+  {
+    "id": "494a03e7-13f2-4268-a817-84dc3588ab99",
+    "labenvio": "PE",
+    "labdestino": "HPLC",
+    "semana": "123",
+    "fecha": "2025-10-03",
+    "lote": "123",
+    "responsable": "Juan Pérez",
+    "estado": "Rechazado",
+    "comentario": "Muestra contaminada, Datos incompletos, Muestra mal rotulada"
+  },
+  {
+    "id": "7157a468-d485-438a-82db-ec95aea4ef30",
+    "labenvio": "PE",
+    "labdestino": "GC",
+    "semana": "123",
+    "fecha": "2025-10-11",
+    "lote": "123",
+    "responsable": "Juan Pérez",
+    "estado": "Rechazado",
+    "comentario": "Muestra mal rotulada, Otro problema"
+  },
+  {
+    "id": "9580b910-6c44-49ba-afe8-ee7328d156a6",
+    "labenvio": "PE",
+    "labdestino": "CRUDO",
+    "semana": "123",
+    "fecha": "2025-10-02",
+    "lote": "123",
+    "responsable": "Juan Pérez",
+    "estado": "Aceptado",
+    "comentario": ""
+  },
+  {
+    "id": "a0d76d77-bd5f-4b33-aa3f-1ef433102a59",
+    "labenvio": "PE",
+    "labdestino": "ELI",
+    "semana": "1",
+    "fecha": "2025-10-01",
+    "lote": "1",
+    "responsable": "Juan Pérez",
+    "estado": "Aceptado",
+    "comentario": ""
+  },
+  {
+    "id": "b617e773-65b4-41df-ab00-4f5f17dfb88e",
+    "labenvio": "SAT",
+    "labdestino": "MICRO",
+    "semana": "123",
+    "fecha": "2025-10-03",
+    "lote": "123",
+    "responsable": "Carlos Díaz",
+    "estado": "Aceptado",
+    "comentario": ""
+  },
+  {
+    "id": "ddb51e0a-2e84-4888-ad1e-8466679c88e5",
+    "labenvio": "PE",
+    "labdestino": "ELI",
+    "semana": "0",
+    "fecha": "2025-10-09",
+    "lote": "0",
+    "responsable": "Juan Pérez",
+    "estado": "Rechazado",
+    "comentario": "Error en lote, Muestra contaminada, Datos incompletos, Muestra mal rotulada, Otro problema"
+  }
+]

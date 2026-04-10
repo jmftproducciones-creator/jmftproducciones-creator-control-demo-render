@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "control_id": 1,
+    "requisito": "dasdasd",
+    "tipo_hallazgo": "No Conformidad Menor",
+    "descripcion": "asdasd"
+  },
+  {
+    "id": 2,
+    "control_id": 1,
+    "requisito": "asdasd",
+    "tipo_hallazgo": "Observación",
+    "descripcion": "asdasdsad"
+  },
+  {
+    "id": 3,
+    "control_id": 3,
+    "requisito": "dasdasd",
+    "tipo_hallazgo": "No Conformidad Menor",
+    "descripcion": "asdasasd"
+  },
+  {
+    "id": 4,
+    "control_id": 3,
+    "requisito": "dasdasd",
+    "tipo_hallazgo": "No Conformidad Menor",
+    "descripcion": "asdasd"
+  }
+]

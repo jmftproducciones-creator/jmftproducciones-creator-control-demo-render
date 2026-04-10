@@ -1,0 +1,922 @@
+{% extends "base.html" %}
+{% block title %}Gestión General (Base SQL){% endblock %}
+
+{% block content %}
+
+<!-- ================= CABECERA ================= -->
+<div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+  <img src="{{ url_for('static', filename='isologo-red.svg') }}" alt="Prodeman" id="logo-toggle" style="height:50px; cursor:pointer;" title="Cambiar modo claro/oscuro">
+  <h1 style="margin:0;">Gestión General (Base SQL)</h1>
+
+  {% if session.get('rol') == 'admin' %}
+  <a href="{{ url_for('admin_panel') }}"
+     style="margin-left:20px; color:#ffd369; background:#631009; padding:8px 14px;
+            border-radius:8px; border:1px solid #B72218; text-decoration:none;">
+     ADMIN
+  </a>
+  {% endif %}
+</div>
+
+
+<!-- ================= FORMULARIO DE CARGA ================= -->
+<fieldset style="border:1px solid #30363d;border-radius:8px;padding:8px;min-width:260px;margin-top:10px;">
+  <legend>Cargar nueva muestra</legend>
+
+  <!-- LABORATORIO QUE ENVÍA -->
+  <label for="labenvio">Laboratorio que envía:</label>
+  <select id="labenvio">
+      <option value="">-- Seleccionar --</option>
+      {% for lab in labs_envio %}
+          <option value="{{ lab }}">{{ lab }}</option>
+      {% endfor %}
+  </select>
+
+  <div class="row" style="margin-top:8px;">
+    <input id="semana" placeholder="Semana" />
+    <input id="fecha" type="date" />
+    <input id="lote" placeholder="Lote" />
+
+    <!-- RESPONSABLES -->
+    <select id="responsable">
+        <option value="">-- Seleccionar --</option>
+        {% for r in responsables %}
+            <option value="{{ r }}">{{ r }}</option>
+        {% endfor %}
+    </select>
+  </div>
+
+  <!-- LABORATORIOS DESTINO -->
+  <fieldset style="margin-top:10px;">
+    <legend>Destino</legend>
+
+    {% for lab in labs_destino %}
+    <label><input type="checkbox" name="labdestino" value="{{ lab }}"> {{ lab }}</label>
+    {% endfor %}
+
+  </fieldset>
+
+  <div style="margin-top:10px;">
+    <button id="btnAgregar">Agregar muestra</button>
+  </div>
+</fieldset>
+
+
+<!-- ================= TOOLBAR ================= -->
+<div class="toolbar" style="margin-top:15px;">
+  <button id="btnRefrescar">Refrescar</button>
+  <button id="btnDescargar">Descargar Excel</button>
+</div>
+
+
+<!-- ================= FILTROS ================= -->
+<button id="toggleFiltros" style="margin-top:15px;">🔽 Mostrar filtros</button>
+
+<div id="contenedorFiltros" style="display:none; margin-top:12px; padding:12px;
+     border:1px solid #B72218; border-radius:10px; background:#3d3d3d;">
+
+  <h3>Filtrar por laboratorio de envío</h3>
+  <nav id="navEnvio" class="nav-labs">
+      <a href="#" data-lab="">Todos</a>
+      {% for lab in labs_envio %}
+          <a href="#" data-lab="{{ lab }}">{{ lab }}</a>
+      {% endfor %}
+  </nav>
+
+  <h3>Filtrar por laboratorio destino</h3>
+  <nav id="navDestino" class="nav-labs">
+      <a href="#" data-lab="">Todos</a>
+      {% for lab in labs_destino %}
+          <a href="#" data-lab="{{ lab }}">{{ lab }}</a>
+      {% endfor %}
+  </nav>
+
+  <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+    <label>Estado:</label>
+    <select id="filtroEstado">
+      <option value="">Todos</option>
+      <option value="Pendiente">Pendiente</option>
+      <option value="Aceptado">Aceptado</option>
+      <option value="Rechazado">Rechazado</option>
+    </select>
+
+    <label>Desde:</label>
+    <input type="date" id="fechaDesde">
+
+    <label>Hasta:</label>
+    <input type="date" id="fechaHasta">
+  </div>
+</div>
+
+
+
+<!-- ================= INDICADORES ================= -->
+<div id="indicadores" style="margin-top:20px; display:flex; flex-wrap:wrap; gap:20px;">
+
+  <!-- POR LABORATORIO -->
+  <div id="indicadoresLabEnvio" style="flex:1; min-width:300px;">
+    <h3>Muestras por laboratorio de envío (según filtros)</h3>
+    <table id="tablaLabEnvio">
+      <thead>
+        <tr>
+          <th>Laboratorio</th>
+          <th>Total</th>
+          <th>Aceptadas</th>
+          <th>Rechazadas</th>
+          <th>Pendientes</th>
+          <th>% Total</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- POR RESPONSABLE -->
+  <div id="indicadoresResponsable" style="flex:1; min-width:300px;">
+    <h3>Muestras por responsable (según filtros)</h3>
+    <table id="tablaResponsable">
+      <thead>
+        <tr>
+          <th>Responsable</th>
+          <th>Total</th>
+          <th>Aceptadas</th>
+          <th>Rechazadas</th>
+          <th>Pendientes</th>
+          <th>% Total</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<!-- ================= TABLA PRINCIPAL ================= -->
+<table id="tablaGeneral" style="margin-top:20px;">
+  <thead>
+    <tr>
+      <th>Lab envío</th>
+      <th>Lab destino</th>
+      <th>Semana</th>
+      <th>Fecha</th>
+      <th>Lote</th>
+      <th>Responsable</th>
+      <th>Estado</th>
+      <th>Comentario</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+
+<!-- ================= MODAL RECHAZO ================= -->
+<div id="modalRechazo" class="modal" style="display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;">
+  <div style="background:#1f2937; padding:20px; border-radius:12px; max-width:420px; color:#fff; text-align:center;">
+    <h3>Motivos de rechazo</h3>
+
+    <div id="listaMotivos" style="text-align:left; margin-bottom:10px;">
+      <label><input type="checkbox" value="Error en lote"> Error en lote</label><br>
+      <label><input type="checkbox" value="Muestra contaminada"> Muestra contaminada</label><br>
+      <label><input type="checkbox" value="Datos incompletos"> Datos incompletos</label><br>
+      <label><input type="checkbox" value="Muestra mal rotulada"> Muestra mal rotulada</label><br>
+      <label><input type="checkbox" value="Otro problema"> Otro problema</label>
+    </div>
+
+    <button id="btnAceptarRechazo">Aceptar</button>
+    <button id="btnCancelarRechazo">Cancelar</button>
+  </div>
+</div>
+
+
+<!-- ================= MODAL MODIFICAR ================= -->
+<div id="modalModificar" class="modal" style="display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;">
+  <div style="background:#1f2937; padding:20px; border-radius:12px; max-width:480px; color:#fff;">
+    <h3>Modificar muestra</h3>
+
+    <label>Semana: <input id="modSemana"></label>
+    <label>Fecha: <input id="modFecha" type="date"></label>
+    <label>Lote: <input id="modLote"></label>
+
+    <label>Responsable:
+      <select id="modResponsable">
+        {% for r in responsables %}
+        <option value="{{ r }}">{{ r }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>Destino:
+      <select id="modDestino">
+        {% for d in labs_destino %}
+        <option value="{{ d }}">{{ d }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <div style="margin-top:10px;">
+      <button id="btnGuardarModificacion">Guardar</button>
+      <button id="btnCancelarModificacion">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PANTALLA CARGA ================= -->
+<div id="cargando" style="
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100vw; height:100vh;
+  background:rgba(0,0,0,0.85);
+  z-index:100000;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  backdrop-filter:blur(4px);
+">
+  <img src="{{ url_for('static', filename='red-logo-text-horizontal.svg') }}" 
+       alt="Prodeman" 
+       style="height:120px; margin-bottom:25px; animation:pulse 1.8s infinite ease-in-out; filter:drop-shadow(0 0 10px #b72218);">
+  <div class="spinner"></div>
+  <p style="color:#f2e6cf; font-size:18px; margin-top:20px; font-weight:500;">Guardando datos en SQL...</p>
+</div>
+
+<!-- ================= ESTILOS ESPECÍFICOS ================= -->
+<style>
+/* tu paleta rojo oscura */
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  margin: 0;
+  background: #323232;
+  color: #F2E6CF;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+th, td {
+  border: 1px solid #B72218;
+  padding: 8px;
+  text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
+}
+th {
+  background: #631009;
+  font-weight: 600;
+  color: #F2E6CF;
+}
+td {
+  background: #323232;
+  color: #F2E6CF;
+}
+tr:nth-child(even) td { background:#3d3d3d; }
+input, select, button {
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid #B72218;
+  background: #631009;
+  color: #F2E6CF;
+}
+input:focus, select:focus, button:hover {
+  outline: none;
+  background: #B72218;
+}
+button { cursor:pointer; }
+
+.nav-labs {
+  margin: 6px 0 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.nav-labs a {
+  background: #631009;
+  color: #F2E6CF;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  border: 1px solid #B72218;
+  transition: background 0.2s, transform 0.1s;
+}
+.nav-labs a:hover {
+  background: #B72218;
+  transform: translateY(-1px);
+}
+.nav-labs a.active {
+  background: #B72218;
+  box-shadow: 0 0 6px #B72218aa;
+}
+#contenedorFiltros {
+  background: #3d3d3d;
+  border: 1px solid #B72218;
+  border-radius: 10px;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+#toggleFiltros {
+  background: #631009;
+  border: 1px solid #B72218;
+  color: #F2E6CF;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+#toggleFiltros:hover {
+  background: #B72218;
+  transform: scale(1.03);
+}
+@keyframes pulse {
+  0% { opacity:0.6; transform:scale(1); }
+  50% { opacity:1; transform:scale(1.05); }
+  100% { opacity:0.6; transform:scale(1); }
+}
+.spinner {
+  width:55px;
+  height:55px;
+  border:6px solid #b72218;
+  border-top:6px solid #f2e6cf;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform:rotate(0deg); }
+  100% { transform:rotate(360deg); }
+}
+
+/* MODO CLARO (Light Mode Override) */
+:root[data-theme="light"] body { background: #f0f2f5; color: #1a1a1a; }
+:root[data-theme="light"] table td { background: #ffffff; color: #1a1a1a; }
+:root[data-theme="light"] table tr:nth-child(even) td { background: #f9f9f9; }
+:root[data-theme="light"] table th { background: #B72218; color: #ffffff; }
+:root[data-theme="light"] input, :root[data-theme="light"] select, :root[data-theme="light"] button {
+  background: #ffffff; color: #1a1a1a; border: 1px solid #ccc;
+}
+:root[data-theme="light"] input:focus, :root[data-theme="light"] select:focus, :root[data-theme="light"] button:hover {
+  background: #f0f2f5; color: #B72218; border-color: #B72218;
+}
+:root[data-theme="light"] .nav-labs a {
+  background: #ffffff; color: #1a1a1a; border: 1px solid #ccc;
+}
+:root[data-theme="light"] .nav-labs a:hover, :root[data-theme="light"] .nav-labs a.active {
+  background: #B72218; color: #ffffff; border-color: #B72218;
+}
+:root[data-theme="light"] #contenedorFiltros {
+  background: #ffffff; border: 1px solid #ccc;
+}
+:root[data-theme="light"] #toggleFiltros {
+  background: #ffffff; color: #1a1a1a; border: 1px solid #ccc;
+}
+:root[data-theme="light"] #toggleFiltros:hover {
+  background: #f0f2f5; color: #B72218; border-color: #B72218;
+}
+</style>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Persistencia de Tema Global
+document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem('suite_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    const logoToggle = document.getElementById('logo-toggle');
+    if (logoToggle) {
+        logoToggle.addEventListener('click', () => {
+            let current = document.documentElement.getAttribute('data-theme');
+            let newTheme = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('suite_theme', newTheme);
+        });
+    }
+});
+
+const RESPONSABLES = {{ responsables|tojson }};
+const LABS_ENVIO = {{ labs_envio|tojson }};
+const LABS_DESTINO = {{ labs_destino|tojson }};
+// =================== CONTRASEÑAS BACKEND ===================
+let PASSWORDS_DESTINO = {};
+let PASSWORDS_ENVIO = {};
+let PASSWORD_ADMIN = "";
+
+// Responsables desde backend (coinciden con ADMIN)
+
+
+async function cargarPasswords() {
+  const resp = await fetch("/passwords");
+  if (resp.ok) {
+    const data = await resp.json();
+    PASSWORDS_DESTINO = data.destino;
+    PASSWORDS_ENVIO = data.envio;
+  }
+
+  const adminResp = await fetch("/password_admin");
+  if (adminResp.ok) {
+    const dataAdmin = await adminResp.json();
+    PASSWORD_ADMIN = dataAdmin.admin;
+  }
+}
+
+// =================== VALIDACIONES ===================
+function pedirPasswordEnvio(labenvio) {
+  const clave = prompt(`Ingrese la contraseña del laboratorio de envío (${labenvio.toUpperCase()}):`);
+  if (!clave) return false;
+  if (clave === PASSWORDS_ENVIO[labenvio.toUpperCase()]) return true;
+  alert("Contraseña incorrecta para el laboratorio de envío.");
+  return false;
+}
+function pedirPasswordDestino(labdestino) {
+  const clave = prompt(`Ingrese la contraseña del laboratorio destino (${labdestino.toUpperCase()}):`);
+  if (!clave) return false;
+  if (clave === PASSWORDS_DESTINO[labdestino.toUpperCase()]) return true;
+  alert("Contraseña incorrecta para el laboratorio destino.");
+  return false;
+}
+
+// =================== VARIABLES GLOBALES ===================
+let datosGlobal = [];
+let labEnvioActivo = "";
+let labDestinoActivo = "";
+let idEnEdicion = null;
+
+// =================== CARGA GENERAL ===================
+async function cargarTodo() {
+  const resp = await fetch("/datos");
+  datosGlobal = resp.ok ? await resp.json() : [];
+  render();
+}
+
+// =================== LOADING ===================
+function mostrarCargando() {
+  document.getElementById("cargando").style.display = "flex";
+}
+function ocultarCargando() {
+  document.getElementById("cargando").style.display = "none";
+}
+
+// =================== RESPONSABLES ===================
+function rellenarResponsables() {
+  const sel = document.getElementById("responsable");
+  sel.innerHTML = `<option value="">-- Seleccionar responsable --</option>` +
+    RESPONSABLES.map(r => `<option value="${r}">${r}</option>`).join("");
+}
+function rellenarResponsablesModal() {
+  const sel = document.getElementById("modResponsable");
+  sel.innerHTML = `<option value="">-- Seleccionar responsable --</option>` +
+    RESPONSABLES.map(r => `<option value="${r}">${r}</option>`).join("");
+}
+
+// =================== AGREGAR MUESTRA ===================
+async function agregarMuestra() {
+  const labenvio = document.getElementById("labenvio").value.trim();
+  const semana = document.getElementById("semana").value.trim();
+  const fecha = document.getElementById("fecha").value.trim();
+  const lote = document.getElementById("lote").value.trim();
+  const responsable = document.getElementById("responsable").value.trim();
+
+  const destinos = Array.from(document.querySelectorAll('input[name="labdestino"]:checked'))
+    .map(x => x.value.trim());
+
+  if (!labenvio || !semana || !fecha || !lote || !responsable || destinos.length === 0) {
+    alert("Completa todos los campos y el/los destino(s).");
+    return;
+  }
+  if (!pedirPasswordEnvio(labenvio)) return;
+
+  try {
+    mostrarCargando();
+    for (const labdestino of destinos) {
+      const muestra = {
+        id: "",
+        labenvio,
+        labdestino,
+        semana,
+        fecha,
+        lote,
+        responsable,
+        estado: "Pendiente",
+        comentario: ""
+      };
+      await fetch("/datos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(muestra)
+      });
+    }
+
+    await cargarTodo();
+
+    ["labenvio","semana","fecha","lote","responsable"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+    document.querySelectorAll('input[name="labdestino"]').forEach(c => c.checked = false);
+  } catch (err) {
+    console.error("Error al agregar muestra:", err);
+    alert("Ocurrió un error al agregar la muestra.");
+  } finally {
+    ocultarCargando();
+  }
+}
+
+// =================== RENDER TABLA ===================
+function td(txt, clase = "") { return `<td class="${clase}">${txt ?? ""}</td>`; }
+
+function render() {
+  const tb = document.querySelector("#tablaGeneral tbody");
+  tb.innerHTML = "";
+  (datosGlobal || []).forEach((f, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      ${td(f.labenvio)}
+      ${td(f.labdestino)}
+      ${td(f.semana)}
+      ${td(f.fecha)}
+      ${td(f.lote)}
+      ${td(f.responsable)}
+      ${td(f.estado, (f.estado||"").toLowerCase())}
+      ${td(f.comentario || "")}
+      <td>
+        ${f.estado === "Pendiente" ? `
+          <button onclick="aceptar(${i})">Aceptar</button>
+          <button onclick="rechazar(${i})">Rechazar</button>
+          <button onclick="modificarRegistro(${i})">modificar</button>
+          <button onclick="eliminarRegistro(${i})">eliminar</button>` : ""}
+      </td>`;
+    tb.appendChild(tr);
+  });
+  aplicarFiltro();
+}
+
+// =================== MODIFICAR ===================
+async function modificarRegistro(idx) {
+  const f = datosGlobal[idx];
+  if (!pedirPasswordEnvio(f.labenvio)) return;
+
+  const adminPass = prompt("Ingrese la contraseña del administrador:");
+  if (adminPass !== PASSWORD_ADMIN) {
+    alert("Contraseña de administrador incorrecta.");
+    return;
+  }
+
+  document.getElementById("modSemana").value = f.semana || "";
+  document.getElementById("modFecha").value = f.fecha || "";
+  document.getElementById("modLote").value = f.lote || "";
+  document.getElementById("modResponsable").value = f.responsable || "";
+  document.getElementById("modDestino").value = f.labdestino || "";
+
+  idEnEdicion = f.id;
+  document.getElementById("modalModificar").style.display = "flex";
+}
+
+document.getElementById("btnCancelarModificacion").onclick = () => {
+  document.getElementById("modalModificar").style.display = "none";
+  idEnEdicion = null;
+};
+
+document.getElementById("btnGuardarModificacion").onclick = async () => {
+  if (!idEnEdicion) return;
+
+  const nuevaSemana = document.getElementById("modSemana").value.trim();
+  const nuevaFecha = document.getElementById("modFecha").value.trim();
+  const nuevoLote = document.getElementById("modLote").value.trim();
+  const nuevoResponsable = document.getElementById("modResponsable").value.trim();
+  const nuevoDestino = document.getElementById("modDestino").value.trim();
+
+  if (!nuevaSemana || !nuevaFecha || !nuevoLote || !nuevoResponsable || !nuevoDestino) {
+    alert("Completa todos los campos antes de guardar.");
+    return;
+  }
+
+  try {
+    mostrarCargando();
+    const f = datosGlobal.find(x => x.id === idEnEdicion);
+    await fetch("/datos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: f.id,
+        labenvio: f.labenvio,
+        labdestino: nuevoDestino,
+        semana: nuevaSemana,
+        fecha: nuevaFecha,
+        lote: nuevoLote,
+        responsable: nuevoResponsable,
+        estado: f.estado,
+        comentario: f.comentario
+      })
+    });
+    await cargarTodo();
+  } catch (err) {
+    alert("Error al modificar la muestra.");
+    console.error(err);
+  } finally {
+    ocultarCargando();
+    document.getElementById("modalModificar").style.display = "none";
+    idEnEdicion = null;
+  }
+};
+
+// =================== ELIMINAR ===================
+async function eliminarRegistro(idx) {
+  const f = datosGlobal[idx];
+  if (!pedirPasswordEnvio(f.labenvio)) return;
+
+  const adminPass = prompt("Ingrese la contraseña del administrador:");
+  if (adminPass !== PASSWORD_ADMIN) {
+    alert("Contraseña de administrador incorrecta.");
+    return;
+  }
+
+  if (!confirm(`¿Seguro que desea eliminar la muestra del lote ${f.lote}?`)) return;
+
+  try {
+    mostrarCargando();
+    await fetch(`/eliminar_muestra/${f.id}`, { method: "DELETE" });
+    await cargarTodo();
+  } catch (err) {
+    console.error("Error al eliminar muestra:", err);
+    alert("Error al eliminar la muestra.");
+  } finally {
+    ocultarCargando();
+  }
+}
+
+// =================== ACEPTAR / RECHAZAR ===================
+async function aceptar(idx) {
+  const f = datosGlobal[idx];
+  if (!pedirPasswordDestino(f.labdestino)) return;
+
+  try {
+    mostrarCargando();
+    await fetch("/actualizar_estado", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: f.id, estado: "Aceptado", comentario: "" })
+    });
+    await cargarTodo();
+  } catch (err) {
+    console.error("Error al aceptar muestra:", err);
+    alert("Ocurrió un error al aceptar la muestra.");
+  } finally {
+    ocultarCargando();
+  }
+}
+
+async function rechazar(idx) {
+  const f = datosGlobal[idx];
+  if (!pedirPasswordDestino(f.labdestino)) return;
+
+  mostrarModalRechazo(async (motivos) => {
+    if (!motivos.length) return;
+
+    try {
+      mostrarCargando();
+      await fetch("/actualizar_estado", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: f.id,
+          estado: "Rechazado",
+          comentario: motivos.join(", ")
+        })
+      });
+      await cargarTodo();
+    } catch (err) {
+      console.error("Error al rechazar muestra:", err);
+      alert("Ocurrió un error al rechazar la muestra.");
+    } finally {
+      ocultarCargando();
+    }
+  });
+}
+
+// =================== MODAL RECHAZO ===================
+function mostrarModalRechazo(callback) {
+  const modal = document.getElementById("modalRechazo");
+  const checks = modal.querySelectorAll("#listaMotivos input[type=checkbox]");
+  const btnA = modal.querySelector("#btnAceptarRechazo");
+  const btnC = modal.querySelector("#btnCancelarRechazo");
+  checks.forEach(ch => ch.checked = false);
+  modal.style.display = "flex";
+  btnA.onclick = () => {
+    const motivos = Array.from(checks).filter(ch => ch.checked).map(ch => ch.value);
+    modal.style.display = "none";
+    callback(motivos);
+  };
+  btnC.onclick = () => modal.style.display = "none";
+}
+
+// =================== FILTROS ===================
+function activarNav(containerId, lab, tipo) {
+  const nav = document.getElementById(containerId);
+  if (!nav) return;
+  nav.querySelectorAll("a").forEach(a => a.classList.remove("active"));
+  const boton = nav.querySelector(`[data-lab="${lab}"]`);
+  if (boton) boton.classList.add("active");
+
+  if (tipo === "envio") labEnvioActivo = lab;
+  else labDestinoActivo = lab;
+
+  aplicarFiltro();
+}
+
+function aplicarFiltro() {
+  const estadoFiltro = document.getElementById("filtroEstado")?.value || "";
+  const fechaDesde = document.getElementById("fechaDesde")?.value || "";
+  const fechaHasta = document.getElementById("fechaHasta")?.value || "";
+
+  const filas = document.querySelectorAll("#tablaGeneral tbody tr");
+
+  filas.forEach(tr => {
+    const labEnvio = tr.children[0].textContent.trim().toUpperCase();
+    const labDestino = tr.children[1].textContent.trim().toUpperCase();
+    const fecha = tr.children[3].textContent.trim();
+    const estado = tr.children[6].textContent.trim();
+
+    let coincideEstado = !estadoFiltro || estado === estadoFiltro;
+    let coincideEnvio = !labEnvioActivo || labEnvio.includes(labEnvioActivo);
+    let coincideDestino = !labDestinoActivo || labDestino.includes(labDestinoActivo);
+    let coincideFecha = true;
+
+    if (fecha) {
+      const fechaFila = new Date(fecha);
+      if (fechaDesde && new Date(fechaDesde) > fechaFila) coincideFecha = false;
+      if (fechaHasta && new Date(fechaHasta) < fechaFila) coincideFecha = false;
+    }
+
+    const visible = coincideEstado && coincideEnvio && coincideDestino && coincideFecha;
+    tr.style.display = visible ? "" : "none";
+  });
+
+  actualizarIndicadoresFiltrados();
+}
+
+// =================== INDICADORES ===================
+function actualizarIndicadoresFiltrados() {
+  const filasVisibles = Array.from(document.querySelectorAll("#tablaGeneral tbody tr"))
+    .filter(tr => tr.style.display !== "none")
+    .map(tr => {
+      const c = tr.querySelectorAll("td");
+      return {
+        labenvio: c[0].innerText.trim(),
+        responsable: c[5].innerText.trim(),
+        estado: c[6].innerText.trim()
+      };
+    });
+
+  const total = filasVisibles.length;
+  if (total === 0) {
+    document.querySelector("#tablaLabEnvio tbody").innerHTML = "<tr><td colspan='6'>Sin datos</td></tr>";
+    document.querySelector("#tablaResponsable tbody").innerHTML = "<tr><td colspan='6'>Sin datos</td></tr>";
+    return;
+  }
+
+  const porLab = {};
+  filasVisibles.forEach(f => {
+    const lab = f.labenvio || "Desconocido";
+    if (!porLab[lab]) porLab[lab] = { total: 0, aceptado: 0, rechazado: 0, pendiente: 0 };
+    porLab[lab].total++;
+    const estado = (f.estado || "").toLowerCase();
+    if (estado.includes("acept")) porLab[lab].aceptado++;
+    else if (estado.includes("rechaz")) porLab[lab].rechazado++;
+    else porLab[lab].pendiente++;
+  });
+
+  const cuerpoLab = Object.entries(porLab)
+    .map(([lab, d]) => {
+      const pA = ((d.aceptado / d.total) * 100).toFixed(1);
+      const pR = ((d.rechazado / d.total) * 100).toFixed(1);
+      const pP = ((d.pendiente / d.total) * 100).toFixed(1);
+      return `
+      <tr>
+        <td>${lab}</td>
+        <td>${d.total}</td>
+        <td style="color:#22c55e">${d.aceptado} (${pA}%)</td>
+        <td style="color:#ef4444">${d.rechazado} (${pR}%)</td>
+        <td style="color:#9ca3af">${d.pendiente} (${pP}%)</td>
+        <td>${((d.total / total) * 100).toFixed(1)}%</td>
+      </tr>`;
+    }).join("");
+  document.querySelector("#tablaLabEnvio tbody").innerHTML = cuerpoLab;
+
+  const porResp = {};
+  filasVisibles.forEach(f => {
+    const r = f.responsable || "Sin responsable";
+    if (!porResp[r]) porResp[r] = { total: 0, aceptado: 0, rechazado: 0, pendiente: 0 };
+    porResp[r].total++;
+    const estado = (f.estado || "").toLowerCase();
+    if (estado.includes("acept")) porResp[r].aceptado++;
+    else if (estado.includes("rechaz")) porResp[r].rechazado++;
+    else porResp[r].pendiente++;
+  });
+
+  const cuerpoResp = Object.entries(porResp)
+    .map(([r, d]) => {
+      const pA = ((d.aceptado / d.total) * 100).toFixed(1);
+      const pR = ((d.rechazado / d.total) * 100).toFixed(1);
+      const pP = ((d.pendiente / d.total) * 100).toFixed(1);
+      return `
+      <tr>
+        <td>${r}</td>
+        <td>${d.total}</td>
+        <td style="color:#22c55e">${d.aceptado} (${pA}%)</td>
+        <td style="color:#ef4444">${d.rechazado} (${pR}%)</td>
+        <td style="color:#9ca3af">${d.pendiente} (${pP}%)</td>
+        <td>${((d.total / total) * 100).toFixed(1)}%</td>
+      </tr>`;
+    }).join("");
+  document.querySelector("#tablaResponsable tbody").innerHTML = cuerpoResp;
+}
+
+// =================== EXPORTAR EXCEL ===================
+document.getElementById("btnDescargar").onclick = async () => {
+  const filasVisibles = [];
+  document.querySelectorAll("#tablaGeneral tbody tr").forEach(tr => {
+    if (tr.style.display === "none") return;
+    const c = tr.querySelectorAll("td");
+    filasVisibles.push({
+      labenvio: c[0].innerText.trim(),
+      labdestino: c[1].innerText.trim(),
+      semana: c[2].innerText.trim(),
+      fecha: c[3].innerText.trim(),
+      lote: c[4].innerText.trim(),
+      responsable: c[5].innerText.trim(),
+      estado: c[6].innerText.trim(),
+      comentario: c[7].innerText.trim()
+    });
+  });
+
+  if (filasVisibles.length === 0) {
+    alert("No hay registros visibles para exportar.");
+    return;
+  }
+
+  const resp = await fetch("/exportar_filtrado", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(filasVisibles)
+  });
+
+  const blob = await resp.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `muestras_sql.xlsx`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
+};
+
+// =================== INICIALIZACIÓN ===================
+document.addEventListener("DOMContentLoaded", () => {
+  rellenarResponsables();
+  rellenarResponsablesModal();
+  cargarPasswords().then(() => cargarTodo());
+
+  document.querySelectorAll("#navEnvio a").forEach(a =>
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      activarNav("navEnvio", a.dataset.lab, "envio");
+    })
+  );
+  document.querySelectorAll("#navDestino a").forEach(a =>
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      activarNav("navDestino", a.dataset.lab, "destino");
+    })
+  );
+
+  activarNav("navEnvio", "", "envio");
+  activarNav("navDestino", "", "destino");
+
+  const contenedorFiltros = document.getElementById("contenedorFiltros");
+  const btnToggleFiltros = document.getElementById("toggleFiltros");
+  if (btnToggleFiltros && contenedorFiltros) {
+    btnToggleFiltros.addEventListener("click", () => {
+      const visible = contenedorFiltros.style.display === "block";
+      contenedorFiltros.style.display = visible ? "none" : "block";
+      btnToggleFiltros.textContent = visible ? "🔽 Mostrar filtros" : "🔼 Ocultar filtros";
+    });
+  }
+
+  document.getElementById("btnAgregar").onclick = agregarMuestra;
+  document.getElementById("btnRefrescar").onclick = cargarTodo;
+});
+
+// pequeña animación al cargar página
+window.addEventListener("load", () => {
+  mostrarCargando();
+  setTimeout(ocultarCargando, 1200);
+});
+</script>
+{% endblock %}

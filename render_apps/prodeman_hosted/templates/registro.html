@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Registro de usuario - Prodeman</title>
+  <style>
+    body { font-family:sans-serif; background:#111; color:#eee; display:flex; justify-content:center; align-items:center; height:100vh; }
+    form { background:#1f2937; padding:30px; border-radius:12px; display:flex; flex-direction:column; gap:10px; width:320px; }
+    input, button { padding:8px; border-radius:6px; border:none; }
+    button { background:#B72218; color:white; cursor:pointer; }
+    a { color:#60a5fa; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <form method="POST">
+    <h2>Crear cuenta</h2>
+    {% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+    <input name="nombre" placeholder="Nombre" required>
+    <input name="apellido" placeholder="Apellido" required>
+    <input name="correo" type="email" placeholder="Correo electrónico" required>
+    <input name="password" type="password" placeholder="Contraseña" required>
+    <button type="submit">Registrarse</button>
+
+    <p style="margin-top:10px; font-size:0.9em;">
+      ¿Ya tenés cuenta?
+      <a href="{{ url_for('login') }}">Iniciar sesión</a>
+    </p>
+  </form>
+</body>
+</html>

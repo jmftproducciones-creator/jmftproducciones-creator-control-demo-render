@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "control_id": 4,
+    "nombre_documento": null,
+    "codigo_documento": "codigo-213",
+    "revision": "afsdfsdf",
+    "copia_controlada": 1,
+    "copia_controlada_numero": null,
+    "no_cargado_portal": 0,
+    "motivo_no_cargado": null,
+    "estado": "sin_copia_controlada",
+    "observaciones": "dfgdfg",
+    "medida_a_tomar": null,
+    "created_at": "2026-03-28T19:16:09",
+    "updated_at": "2026-03-28T19:16:09",
+    "imagen_path": null
+  }
+]

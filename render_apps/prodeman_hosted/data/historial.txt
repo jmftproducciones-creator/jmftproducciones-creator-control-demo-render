@@ -1,0 +1,14 @@
+[
+  {
+    "fecha": "2025-10-28 17:14:56",
+    "usuario": "admin",
+    "accion": "Inicio de sesión exitoso",
+    "id_muestra": null
+  },
+  {
+    "fecha": "2025-10-28 17:18:30",
+    "usuario": "admin",
+    "accion": "Alta de muestra - Lote fgfdr",
+    "id_muestra": "10c3433c-9340-4dbe-8e7a-606431f66272"
+  }
+]
